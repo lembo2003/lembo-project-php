@@ -19,6 +19,30 @@
             return mysqli_query($conn, $sql);
         }
 
+        public function select_product($id) {
+            global $conn;
+
+            $sql = "SELECT * FROM product WHERE product_id = '$id'";
+
+            return mysqli_query($conn, $sql);
+        }
+
+        public function select_top($num) {
+            global $conn;
+
+            $sql = "SELECT * FROM product ORDER BY product_id DESC LIMIT $num";
+
+            return mysqli_query($conn, $sql);
+        }
+
+        public function select_out_of_stock() {
+            global $conn;
+
+            $sql = "SELECT * FROM product WHERE quantity = 0";
+
+            return mysqli_query($conn, $sql);
+        }
+
         public function delete($product_id) {
             global $conn;
 
@@ -26,6 +50,15 @@
 
             return mysqli_query($conn, $sql);
         }
+
+        public function delete_by_category($category_name) {
+            global $conn;
+
+            $sql = "DELETE FROM product WHERE category = '$category_name'";
+
+            return mysqli_query($conn, $sql);
+        }
+
         public function update($product_id, $product_name, $quantity, $picture, $category, $date, $price, $description) {
             global $conn;
 
@@ -107,4 +140,3 @@ class tbl_user{
         return mysqli_query($conn, $sql);
     }
 }
-?>
