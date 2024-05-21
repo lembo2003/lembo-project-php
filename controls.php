@@ -107,3 +107,4 @@ class tbl_user{
         return mysqli_query($conn, $sql);
     }
 }
+?>
