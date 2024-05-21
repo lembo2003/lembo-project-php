@@ -315,7 +315,7 @@ include("../controls.php");
                                             <td> <?php echo $product["quantity"] ?> </td>
 
                                             <td> 
-                                                <img src="../../UPLOAD/PRODUCT_img/<?php echo $product["picture"] ?>" style="width:50px;">
+                                                <img src="../UPLOAD/<?php echo $product["picture"] ?>" style="width:50px;">
                                             </td>
 
                                             <td> <?php echo $product["category"] ?> </td>

@@ -331,7 +331,7 @@ include("../controls.php");
                                 </form><?php
   
   if(isset($_POST["btn_submit"])) {
-      move_uploaded_file($_FILES["txt_product_picture"]["tmp_name"], "../UPLOAD/PRODUCT_img/" . $_FILES["txt_product_picture"]["name"]);
+      move_uploaded_file($_FILES["txt_product_picture"]["tmp_name"], "../UPLOAD/" . $_FILES["txt_product_picture"]["name"]);
 
       $tbl_product = new tbl_product();
 

@@ -343,7 +343,7 @@ include("../controls.php");
       $file_name = "";
 
       if($_FILES["txt_product_picture"]['error'] !== 4) {
-          move_uploaded_file($_FILES["txt_product_picture"]["tmp_name"], "../UPLOAD/PRODUCT_img/" . $_FILES["txt_product_picture"]["name"]);
+          move_uploaded_file($_FILES["txt_product_picture"]["tmp_name"], "../UPLOAD" . $_FILES["txt_product_picture"]["name"]);
           $file_name = $_FILES["txt_product_picture"]["name"];
       } else {
           $file_name = $_POST["txt_old_picture"];
