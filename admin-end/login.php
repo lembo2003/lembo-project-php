@@ -78,6 +78,7 @@
                 </form>
                 <?php 
                                     include('../controls.php');
+                                    session_start();
                                     $tbl_user = new tbl_user();
 
                                     if(isset($_POST["btn_submit"])) {
@@ -85,6 +86,7 @@
 
                                         if(mysqli_num_rows($user_info) == 1) {                                      
                                             if($_POST["txt_password"] == $user_info->fetch_assoc()["password"]) {
+                                                $_SESSION["username"] = $_POST["txt_username"];
                                                 echo "<script> alert('Đăng nhập thành công'); window.location='select_products.php' </script>";
                                             } else {
                                                 echo "<script> alert('Nhập sai mật khẩu') </script>";

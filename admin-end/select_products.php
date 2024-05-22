@@ -1,5 +1,6 @@
 <?php
 include("../controls.php");
+session_start();
 ?>
 
 <!doctype html>
@@ -63,12 +64,12 @@ include("../controls.php");
                                     </span></a>
                                 <ul class="collapse">
                                     <li><a href="category_select.php">Select categories</a></li>
-                                    <li><a href="category_insert.php">Add new</a></li>
+                                    <li><a href="category_register.php">Add new</a></li>
                                 </ul>
                             </li>
-                           
-                            <li><a href="contact_select.php"><i class="ti-map-alt"></i> <span>Orders</span></a></li>
-                            <li><a href="order_select.php"><i class="ti-receipt"></i> <span>Contacts</span></a></li>
+                            <li><a href="../user-end/shop.php"><i class="ti-map-alt"></i> <span>Shop</span></a></li>
+                            <li><a href="order_select.php"><i class="ti-map-alt"></i> <span>Orders</span></a></li>
+                            <li><a href="contact_select.php"><i class="ti-receipt"></i> <span>Contacts</span></a></li>
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layers-alt"></i> <span>Pages</span></a>
                                 <ul class="collapse">
@@ -266,11 +267,18 @@ include("../controls.php");
                     <div class="col-sm-6 clearfix">
                         <div class="user-profile pull-right">
                             <img class="avatar user-thumb" src="assets/images/author/avatar.png" alt="avatar">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">SESSION <i class="fa fa-angle-down"></i></h4>
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
+                            <?php
+                            
+                              if(!empty($_SESSION["username"])) 
+                                echo $_SESSION["username"];             
+                            else echo "You are not logged in! Log in now!";             
+                            ?>    
+                            <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#">Message</a>
                                 <a class="dropdown-item" href="#">Settings</a>
-                                <a class="dropdown-item" href="#">Log Out</a>
+                                <a class="dropdown-item" href="logout.php">Log Out</a>
                             </div>
                         </div>
                     </div>
