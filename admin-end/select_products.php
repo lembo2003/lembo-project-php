@@ -79,7 +79,14 @@ session_start();
 
                                 </ul>
                             </li>
-                            
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i><span>Report
+                                    </span></a>
+                                <ul class="collapse">
+                                    <li><a href="revenue_report.php">Revenue</a></li>
+                                    <li><a href="product_report.php">Out of stock</a></li>
+                                </ul>
+                            </li>
                             
                         </ul>
                     </nav>

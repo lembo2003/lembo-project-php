@@ -155,8 +155,9 @@
                                                     }
                                                     $tbl_user = new tbl_user();
                                                     if($tbl_user->insert($username, $password, $gender, $address, $hobby_str, $avatar_path, $email)) {
-                                                        echo "<script> alert('đăng ký thành công') </script>
-                                                        window.location='../user-end/login.php'";
+                                                        echo "<script> alert('đăng ký thành công');
+                                                        window.location='../user-end/login.php'; </script>
+                                                        ";
                                                     } else {
                                                         echo "<script> alert('đăng ký thất bại') </script>";
                                                     }

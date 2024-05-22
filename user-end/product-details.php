@@ -46,7 +46,7 @@
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Online Store <em>Website</em></h2></a>
+          <a class="navbar-brand" href="shop.php"><h2>LEMBO <em>SHOP</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -74,6 +74,23 @@
                 <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                </li>
+                <li class="nav-item">
+                <?php 
+                    if(!empty($_SESSION["username"])) {
+                      echo "<p style='color: white; margin: 0;'> Hello " . $_SESSION["username"] . "</p>";
+                      echo "<a class='nav-link' href='logout.php'>Logout</a>";
+                    } else {
+                      echo "<a class='nav-link' href='login.php'>Login</a>";
+                    }
+                  ?>   
+                </li>
+                <li class="nav-item">
+                  <?php
+                  if(!empty($_SESSION["username"])){
+                    echo "<a href='../admin-end/login.php' class='nav-link'>Go to admin</a>";
+                  }
+                  ?>
             </ul>
           </div>
         </div>

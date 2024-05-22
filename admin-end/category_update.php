@@ -49,7 +49,7 @@ session_start();
             </div>
             <div class="main-menu">
                 <div class="menu-inner">
-                    <nav>
+                <nav>
                         <ul class="metismenu" id="menu">
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-sidebar-left"></i><span>PRODUCT
@@ -64,22 +64,29 @@ session_start();
                                     </span></a>
                                 <ul class="collapse">
                                     <li><a href="category_select.php">Select categories</a></li>
-                                    <li><a href="category_insert.php">Add new</a></li>
+                                    <li><a href="category_register.php">Add new</a></li>
                                 </ul>
                             </li>
-                           
-                            <li><a href="contact_select.php"><i class="ti-map-alt"></i> <span>Orders</span></a></li>
-                            <li><a href="order_select.php"><i class="ti-receipt"></i> <span>Contacts</span></a></li>
+                            <li><a href="../user-end/shop.php"><i class="ti-map-alt"></i> <span>Shop</span></a></li>
+                            <li><a href="order_select.php"><i class="ti-map-alt"></i> <span>Orders</span></a></li>
+                            <li><a href="contact_select.php"><i class="ti-receipt"></i> <span>Contacts</span></a></li>
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layers-alt"></i> <span>Pages</span></a>
                                 <ul class="collapse">
                                     <li><a href="login.php">Login</a></li>
                                     <li><a href="register.php">Register</a></li>
-                                    <li><a href="reset-pass.php">reset password</a></li>
+                                    <li><a href="forgot-password.php">reset password</a></li>
 
                                 </ul>
                             </li>
-                            
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i><span>Report
+                                    </span></a>
+                                <ul class="collapse">
+                                    <li><a href="revenue_report.php">Revenue</a></li>
+                                    <li><a href="product_report.php">Out of stock</a></li>
+                                </ul>
+                            </li>
                             
                         </ul>
                     </nav>

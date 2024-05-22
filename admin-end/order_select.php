@@ -298,47 +298,53 @@ session_start();
                     <div class="col-lg-6 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Danh sach category</h4>
-                                <a href="category_register.php" style="float: right;"> Thêm loại >> </a>
+                                <h4 class="header-title">Orders</h4>
+
                                 <div class="single-table">
                                     <div class="table-responsive">
                                     <table class="table">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
-                                            <th style="width: 50%;">Description</th>
-                                            <th>Options</th>
+                                            <th>Username</th>
+                                            <th>Order date</th>
+                                            <th>Into money</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $tbl_category = new tbl_category();
-                                            $categories = $tbl_category->select_all();
+                                            $tbl_user_order = new tbl_user_order();
+                                            $orders = $tbl_user_order->select_all();
                                             
-                                            foreach($categories as $category) {                                                                                       
+                                            foreach($orders as $order) {                                                                                       
                                         ?>
 
                                         <tr> 
-                                            <td> <?php echo $category["category_id"] ?> </td>
-                                            <td> <?php echo $category["category_name"] ?> </td>
-                                            <td> <?php echo $category["category_description"] ?> </td>
-
+                                            <td> <?php echo $order["order_id"] ?> </td>
+                                            <td> <?php echo $order["username"] ?> </td>
+                                            <td> <?php echo $order["order_date"] ?> </td>
+                                            <td> <?php echo $order["into_money"] ?> </td>
                                             <td> 
-                                                <a href="category_update.php?id=<?php echo $category["category_id"] ?>"> Update </a> |
-
-                                                <a 
-                                                    href="category_delete.php?id=<?php echo $category["category_id"] ?>&name=<?php echo $category["category_name"] ?>" 
-                                                    onclick=
-                                                        "if(confirm('Xóa loại sản phẩm này? Nếu xóa, tất cả sản phẩm thuộc loại này sẽ bị xóa theo')) {
-                                                            return true;
-                                                        } else {
-                                                            return false;
-                                                        }">                 
-                                                    Delete 
-                                                </a>  
-
+                                                <select id="status_opt_<?php echo $order["order_id"] ?>"> 
+                                                    <option> <?php echo $order["status"] ?> </option>
+                                                    <option> --------------- </option>
+                                                    <option value="Chờ xác nhận"> Chờ xác nhận </option>
+                                                    <option value="Đang vận chuyển"> Đang vận chuyển </option>
+                                                    <option value="Giao thành công"> Giao thành công </option>
+                                                    <option value="Đã hủy"> Đã hủy </option>
+                                                </select>    
+                                                
+                                                <button 
+                                                    onclick="
+                                                        let status = document.getElementById('status_opt_<?php echo $order['order_id'] ?>').value;
+                                                        window.location = 'order_status_update.php?id=<?php echo $order['order_id'] ?>&stt=' + status;
+                                                    "
+                                                >
+                                                    Cập nhật trạng thái
+                                                </button>
                                             </td>
+                                            <td> <a href="order_details.php?id=<?php echo $order['order_id'] ?>">Xem chi tiết</a> </td>
                                         </tr>
 
                                         <?php 

@@ -298,54 +298,89 @@ session_start();
                     <div class="col-lg-6 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Danh sach category</h4>
-                                <a href="category_register.php" style="float: right;"> Thêm loại >> </a>
+                                <h4 class="header-title">Orders details</h4>
+
                                 <div class="single-table">
                                     <div class="table-responsive">
+                                    <div class="panel-body">
+                            <?php 
+                                $tbl_user = new tbl_user();
+                                $tbl_user_order = new tbl_user_order();
+
+                                $order = $tbl_user_order->select_order($_GET["id"])->fetch_assoc();
+                                $user = $tbl_user->select_user($order["username"])->fetch_assoc(); 
+                            ?>
+                            <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                  <tr> 
+                                    <td> Tên khách hàng </td>
+                                    <td> <?php echo $user["username"] ?> </td>
+                                  </tr>
+
+                                  <tr> 
+                                    <td> Địa chỉ </td>
+                                    <td> <?php echo $user["address"] ?> </td>
+                                  </tr>
+
+                                  <tr> 
+                                    <td> Ngày đặt </td>
+                                    <td> <?php echo $order["order_date"] ?> </td>
+                                  </tr>
+
+                                  <tr> 
+                                    <td> Trạng thái </td>
+                                    <td> <?php echo $order["status"] ?> </td>
+                                  </tr>
+
+                                  <tr>
+                                    <td colspan="2" style="text-align: left; font-weight: bold;"> Danh sách sản phẩm </td>
+                                  </tr>
+
+                                  <tr>
                                     <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th style="width: 50%;">Description</th>
-                                            <th>Options</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                            $tbl_category = new tbl_category();
-                                            $categories = $tbl_category->select_all();
-                                            
-                                            foreach($categories as $category) {                                                                                       
-                                        ?>
+                                      <tr>
+                                        <th>Tên hàng</th>
+                                        <th>Hình ảnh</th>
+                                        <th>Đơn giá</th>
+                                        <th>Số lượng</th>
+                                      </tr>
 
-                                        <tr> 
-                                            <td> <?php echo $category["category_id"] ?> </td>
-                                            <td> <?php echo $category["category_name"] ?> </td>
-                                            <td> <?php echo $category["category_description"] ?> </td>
+                                      <?php 
+                                        $order_products = $tbl_user_order->select_order_products($order["order_id"]);
 
-                                            <td> 
-                                                <a href="category_update.php?id=<?php echo $category["category_id"] ?>"> Update </a> |
+                                        foreach($order_products as $product) {
+                                      ?>
 
-                                                <a 
-                                                    href="category_delete.php?id=<?php echo $category["category_id"] ?>&name=<?php echo $category["category_name"] ?>" 
-                                                    onclick=
-                                                        "if(confirm('Xóa loại sản phẩm này? Nếu xóa, tất cả sản phẩm thuộc loại này sẽ bị xóa theo')) {
-                                                            return true;
-                                                        } else {
-                                                            return false;
-                                                        }">                 
-                                                    Delete 
-                                                </a>  
+                                      <tr> 
+                                        <td> <?php echo $product["product_name"] ?> </td>
+                                        <td> 
+                                          <img src="../UPLOAD/<?php echo $product["picture"] ?>" alt="" style="width: 80px;">
+                                        </td>
+                                        <td> <?php echo $product["price"] ?> </td>
+                                        <td> <?php echo $product["number_buy"] ?> </td>
+                                      </tr>                     
+                                      <?php 
+                                        }
+                                      ?>
 
-                                            </td>
-                                        </tr>
+                                      <tr>
+                                        <td>
+                                          <td colspan="4" style="text-align: right;"> 
+                                            <?php echo "Thành tiền : ". $order["into_money"] ?>
+                                          </td>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  <tr>
+                                </tbody>
 
-                                        <?php 
-                                            }
-                                        ?>
-                                    </tbody>
-                                </table>
+                                <tr> 
+                                    <h3> <a href="order_select.php"> << Quay lại </a> </h3>
+                                </tr>
+                            <table>
+                            </div>
+                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -298,39 +298,40 @@ session_start();
                     <div class="col-lg-6 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Danh sach category</h4>
-                                <a href="category_register.php" style="float: right;"> Thêm loại >> </a>
+                                <h4 class="header-title">Contacts</h4>
+
                                 <div class="single-table">
                                     <div class="table-responsive">
                                     <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th style="width: 50%;">Description</th>
-                                            <th>Options</th>
+                                            <th>Contact ID</th>
+                                            <th>Fullname</th>
+                                            <th>Email</th>
+                                            <th>Phonenumber</th>
+                                            <th>Message</th>
+                                            <th>Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $tbl_category = new tbl_category();
-                                            $categories = $tbl_category->select_all();
+                                            $tbl_contact = new tbl_contact();
+                                            $contacts = $tbl_contact->select_all();
                                             
-                                            foreach($categories as $category) {                                                                                       
+                                            foreach($contacts as $contact) {                                                                                       
                                         ?>
 
                                         <tr> 
-                                            <td> <?php echo $category["category_id"] ?> </td>
-                                            <td> <?php echo $category["category_name"] ?> </td>
-                                            <td> <?php echo $category["category_description"] ?> </td>
-
+                                            <td> <?php echo $contact["contact_id"] ?> </td>
+                                            <td> <?php echo $contact["fullname"] ?> </td>
+                                            <td> <?php echo $contact["email"] ?> </td>
+                                            <td> <?php echo $contact["phonenumber"] ?> </td>
+                                            <td> <?php echo $contact["message"] ?> </td>
                                             <td> 
-                                                <a href="category_update.php?id=<?php echo $category["category_id"] ?>"> Update </a> |
-
                                                 <a 
-                                                    href="category_delete.php?id=<?php echo $category["category_id"] ?>&name=<?php echo $category["category_name"] ?>" 
+                                                    href="delete_contact.php?id=<?php echo $contact["contact_id"] ?>" 
                                                     onclick=
-                                                        "if(confirm('Xóa loại sản phẩm này? Nếu xóa, tất cả sản phẩm thuộc loại này sẽ bị xóa theo')) {
+                                                        "if(confirm('Xóa contact này?')) {
                                                             return true;
                                                         } else {
                                                             return false;

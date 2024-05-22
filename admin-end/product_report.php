@@ -298,8 +298,16 @@ session_start();
                     <div class="col-lg-6 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Danh sach category</h4>
-                                <a href="category_register.php" style="float: right;"> Thêm loại >> </a>
+                                <h4 class="header-title">Product out of stock</h4>
+                                <?php 
+                            $tbl_product = new tbl_product();
+                            $products = $tbl_product->select_out_of_stock();
+
+                            if($products->num_rows == 0) {
+                                echo "<h1 style='margin-left: 450px;'> Không có sản phẩm nào hết hàng </h1>";
+                            } else {
+                        ?>
+
                                 <div class="single-table">
                                     <div class="table-responsive">
                                     <table class="table">
@@ -307,30 +315,40 @@ session_start();
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
-                                            <th style="width: 50%;">Description</th>
+                                            <th>Number</th>
+                                            <th>Picture</th>
+                                            <th>Category</th>
+                                            <th>Date</th>
+                                            <th>Price</th>
+                                            <th>Description</th>
                                             <th>Options</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                            $tbl_category = new tbl_category();
-                                            $categories = $tbl_category->select_all();
-                                            
-                                            foreach($categories as $category) {                                                                                       
+                                        <?php                                           
+                                            foreach($products as $product) {                                                                                       
                                         ?>
 
                                         <tr> 
-                                            <td> <?php echo $category["category_id"] ?> </td>
-                                            <td> <?php echo $category["category_name"] ?> </td>
-                                            <td> <?php echo $category["category_description"] ?> </td>
+                                            <td> <?php echo $product["product_id"] ?> </td>
+                                            <td> <?php echo $product["product_name"] ?> </td>
+                                            <td> <?php echo $product["quantity"] ?> </td>
 
                                             <td> 
-                                                <a href="category_update.php?id=<?php echo $category["category_id"] ?>"> Update </a> |
+                                                <img src="../UPLOAD/<?php echo $product["picture"] ?>" style="width:50px;">
+                                            </td>
+
+                                            <td> <?php echo $product["category"] ?> </td>
+                                            <td> <?php echo $product["date"] ?> </td>
+                                            <td> <?php echo $product["price"] ?> </td>
+                                            <td> <?php echo $product["description"] ?> </td>
+                                            <td> 
+                                                <a href="update_product.php?id=<?php echo $product["product_id"] ?>"> Update </a> |
 
                                                 <a 
-                                                    href="category_delete.php?id=<?php echo $category["category_id"] ?>&name=<?php echo $category["category_name"] ?>" 
+                                                    href="delete_product.php?id=<?php echo $product["product_id"] ?>" 
                                                     onclick=
-                                                        "if(confirm('Xóa loại sản phẩm này? Nếu xóa, tất cả sản phẩm thuộc loại này sẽ bị xóa theo')) {
+                                                        "if(confirm('Xóa sản phẩm này?')) {
                                                             return true;
                                                         } else {
                                                             return false;
@@ -343,6 +361,7 @@ session_start();
 
                                         <?php 
                                             }
+                                        }
                                         ?>
                                     </tbody>
                                 </table>

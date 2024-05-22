@@ -68,7 +68,7 @@ session_start();
                 
                 <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
 
-                <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.php">Contact Us</a></li>
                 <li class="nav-item">
                   <?php 
                     if(!empty($_SESSION["username"])) {

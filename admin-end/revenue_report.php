@@ -298,56 +298,49 @@ session_start();
                     <div class="col-lg-6 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Danh sach category</h4>
-                                <a href="category_register.php" style="float: right;"> Thêm loại >> </a>
-                                <div class="single-table">
-                                    <div class="table-responsive">
-                                    <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th style="width: 50%;">Description</th>
-                                            <th>Options</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                            $tbl_category = new tbl_category();
-                                            $categories = $tbl_category->select_all();
-                                            
-                                            foreach($categories as $category) {                                                                                       
-                                        ?>
+                                <h4 class="header-title">Orders</h4>
 
-                                        <tr> 
-                                            <td> <?php echo $category["category_id"] ?> </td>
-                                            <td> <?php echo $category["category_name"] ?> </td>
-                                            <td> <?php echo $category["category_description"] ?> </td>
+                                <form method="POST">
+                                <table class="table">
+                                    <tr>
+                                        <td style="width: 500px;">
+                                            <div class="form-group"> 
+                                                <label> Doanh thu từ </label> 
+                                                <input class="form-control" type="date" name="txt_begin_date">
+                                                <label> đến </label> 
+                                                <input class="form-control" type="date" name="txt_end_date" value="<?php echo date("Y-m-d") ?>">
+                                            </div> 
+                                        </td> 
+                                        <td  style ="border-left: 1px solid gray; vertical-align: middle; text-align: center;">
+                                            <div class="form-group">                                            
+                                                <h1> 
+                                                    <?php 
+                                                        if(isset($_POST["btn_revenue_date"])) {
+                                                            $tbl_user_order = new tbl_user_order();
+                                                            
+                                                            if(empty($_POST["txt_begin_date"]) || empty($_POST["txt_end_date"])) {
+                                                                echo 0;
+                                                            }
+                                                            else {
+                                                                $revenue_date = $tbl_user_order->revenue_date($_POST["txt_begin_date"], $_POST["txt_end_date"]);
+                                                                echo $revenue_date; 
+                                                            }                                                          
+                                                        }
+                                                    ?>
+                                                </h1> 
+                                                vnđ                                            
+                                            </div> 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> 
+                                            <button type="submit" class="btn btn-info" name="btn_revenue_date"> Tính doanh thu </button>
+                                        </td>
 
-                                            <td> 
-                                                <a href="category_update.php?id=<?php echo $category["category_id"] ?>"> Update </a> |
-
-                                                <a 
-                                                    href="category_delete.php?id=<?php echo $category["category_id"] ?>&name=<?php echo $category["category_name"] ?>" 
-                                                    onclick=
-                                                        "if(confirm('Xóa loại sản phẩm này? Nếu xóa, tất cả sản phẩm thuộc loại này sẽ bị xóa theo')) {
-                                                            return true;
-                                                        } else {
-                                                            return false;
-                                                        }">                 
-                                                    Delete 
-                                                </a>  
-
-                                            </td>
-                                        </tr>
-
-                                        <?php 
-                                            }
-                                        ?>
-                                    </tbody>
+                                        <td> </td>
+                                    </tr>
                                 </table>
-                                    </div>
-                                </div>
+                            </form>
                             </div>
                         </div>
                     </div>
