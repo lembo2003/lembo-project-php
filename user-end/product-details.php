@@ -1,3 +1,10 @@
+<?php 
+  include('../controls.php');
+  session_start();
+
+  $tbl_product = new tbl_product();
+  $product = ($tbl_product->select_product($_GET["id"]))->fetch_assoc();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,7 +87,7 @@
           <div class="col-md-12">
             <div class="text-content">
               <h4>Lorem ipsum dolor sit amet</h4>
-              <h2>Products</h2>
+              <h2>Product Details</h2>
             </div>
           </div>
         </div>
@@ -90,13 +97,108 @@
     <div class="products">
       <div class="container">
         <div class="row">
+          <div class="col-md-4 col-xs-12">
+            <div>
+              <img src="../UPLOAD/<?php echo  $product['picture'] ?>"" alt="" class="img-fluid wc-image">
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm-4 col-xs-6">
+
+                <br>
+              </div>
+              <div class="col-sm-4 col-xs-6">
+
+                <br>
+              </div>
+              <div class="col-sm-4 col-xs-6">
+
+                <br>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-8 col-xs-12">
+            <form action="#" method="post" class="form">
+              <h2><?php echo $product["product_name"] ?></h2>
+
+              <br>
+
+              <p class="lead">
+                <strong class="text-primary"><?php echo $product["price"] ?></strong>
+              </p>
+
+              <br>
+
+              <p class="lead">
+              <?php echo $product["description"] ?>
+              </p>
+
+              <br> 
+
+              <div class="row">
+                <div class="col-sm-8">
+                <label class="control-label">In stock: <?php echo $product["quantity"] ?> </label> <br>
+                  <label class="control-label">Quantity</label>
+                  
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="1" name="txt_quantity">
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <button class="btn btn-primary btn-block" name="btn_submit">Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <?php 
+              if(isset($_POST["btn_submit"])) {
+                if(!empty($_SESSION["username"])) {
+                  if($_POST["txt_quantity"] <= $product['quantity']) {
+                    if(empty($_SESSION["orders"])) {
+                      $_SESSION["orders"] = array(array("product" => $product, "number_buy" => $_POST["txt_quantity"]));
+                    } else {
+                      array_push($_SESSION["orders"], array("product" => $product, "number_buy" => $_POST["txt_quantity"]));
+                    }
+                    echo "
+                      <script>
+                        if(confirm('Thêm vào giỏ hàng thành công, chuyển đến giỏ hàng?')) {
+                          window.location = 'cart.php';
+                        }  
+                      </script>
+                      ";
+                  } else {
+                    echo "<script> alert('Không thể mua quá số lượng tồn kho') </script>";
+                  }
+                } else {
+                  echo "<script> window.location = 'login.php' </script>";
+                }
+              }
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="latest-products">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-heading">
+              <h2>Similar Products</h2>
+              <a href="products.html">view more <i class="fa fa-angle-right"></i></a>
+            </div>
+          </div>
           <div class="col-md-4">
             <div class="product-item">
               <a href="product-details.html"><img src="assets/images/product-1-370x270.jpg" alt=""></a>
               <div class="down-content">
-                <a href="product-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
+                <a href="product-details.html"><h4>Omega bicycle</h4></a>
                 <h6><small><del>$999.00 </del></small> $779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dicta voluptas quia dolor fuga odit.</p>
               </div>
             </div>
           </div>
@@ -105,9 +207,8 @@
             <div class="product-item">
               <a href="product-details.html"><img src="assets/images/product-2-370x270.jpg" alt=""></a>
               <div class="down-content">
-                <a href="product-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
+                <a href="product-details.html"><h4>Nike Revolution 5 Shoes</h4></a>
                 <h6><small><del>$99.00</del></small>  $79.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non beatae soluta, placeat vitae cum maxime culpa itaque minima.</p>
               </div>
             </div>
           </div>
@@ -116,54 +217,10 @@
             <div class="product-item">
               <a href="product-details.html"><img src="assets/images/product-3-370x270.jpg" alt=""></a>
               <div class="down-content">
-                <a href="product-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
+                <a href="product-details.html"><h4>Treadmill Orion Sprint</h4></a>
                 <h6><small><del>$1999.00</del></small>   $1779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt nisi quia aspernatur, harum facere delectus saepe enim?</p>
               </div>
             </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="product-details.html"><img src="assets/images/product-4-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="product-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$999.00 </del></small> $779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dicta voluptas quia dolor fuga odit.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="product-details.html"><img src="assets/images/product-5-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="product-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$99.00</del></small>  $79.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non beatae soluta, placeat vitae cum maxime culpa itaque minima.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="product-details.html"><img src="assets/images/product-6-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="product-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$1999.00</del></small>   $1779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt nisi quia aspernatur, harum facere delectus saepe enim?</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-12">
-            <ul class="pages">
-              <li><a href="#">1</a></li>
-              <li class="active"><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-            </ul>
           </div>
         </div>
       </div>

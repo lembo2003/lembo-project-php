@@ -141,3 +141,95 @@
             return mysqli_query($conn, $sql);
         }
     }
+    class tbl_user_order {
+        public function select_last_order() {
+            global $conn;
+
+            $sql = "SELECT * FROM user_order ORDER BY order_id DESC LIMIT 1";
+
+            return mysqli_query($conn, $sql);
+        }
+
+        public function insert($orders, $user_id, $into_money) {
+            global $conn;
+
+            $today_date = date("Y-m-d");
+            $sql = "INSERT INTO user_order(user_id, order_date, into_money) VALUES('$user_id', '$today_date', '$into_money')";
+
+            if(mysqli_query($conn, $sql)) {
+                $sql = "SELECT order_id FROM user_order ORDER BY order_id DESC LIMIT 1";
+                $order_id = mysqli_query($conn, $sql)->fetch_assoc()["order_id"];
+
+                foreach($orders as $order) {
+                    try {
+                        $product_id = $order["product"]["product_id"];
+                        $quantity = $order["product"]["quantity"];
+                        $number_buy = $order["number_buy"];
+
+                        $sql = "INSERT INTO order_details VALUES ('$order_id','$product_id','$number_buy')";
+
+                        mysqli_query($conn, $sql);
+
+                        $sql = "UPDATE product SET quantity = $quantity - $number_buy WHERE product_id = '$product_id'";
+
+                        mysqli_query($conn, $sql);
+                    }
+                    catch(Exception $e) {
+                        echo $e->getMessage();
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public function select_order_products($order_id) {
+            global $conn;
+
+            $sql = "SELECT product.*, order_details.number_buy FROM product INNER JOIN order_details ON product.product_id = order_details.product_id 
+                    WHERE order_id = $order_id";
+
+            return mysqli_query($conn, $sql);
+        }
+
+        public function revenue_date($from, $to) {
+            global $conn;
+
+            $sql = "SELECT SUM(into_money) AS revenue FROM user_order WHERE order_date BETWEEN '$from' AND '$to'";
+
+            $result = mysqli_query($conn, $sql);
+
+            if(mysqli_num_rows($result) != 0) {
+                return $result->fetch_assoc()["revenue"];
+            }
+
+            return 0;
+        }
+
+        public function select_all() {
+            global $conn;
+
+            $sql = "SELECT order_id, username, order_date, into_money, status FROM user_order INNER JOIN user ON user_order.user_id = user.user_id";
+
+            return mysqli_query($conn, $sql);
+        }
+
+        public function select_order($id) {
+            global $conn;
+
+            $sql = "SELECT order_id, username, order_date, into_money, status FROM user_order INNER JOIN user ON user_order.user_id = user.user_id WHERE order_id = '$id'";
+
+            return mysqli_query($conn, $sql);
+        }
+
+        public function update_status($id, $status) {
+            global $conn;
+
+            $sql = "UPDATE user_order SET status = '$status' WHERE order_id = '$id'";
+
+            return mysqli_query($conn, $sql);
+        }
+    }

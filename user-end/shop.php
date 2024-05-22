@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +41,7 @@
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Online Store <em>Website</em></h2></a>
+          <a class="navbar-brand" href="index.html"><h2>Lembo <em>Shop</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -66,6 +69,24 @@
                 <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                <li class="nav-item">
+                  <?php 
+                    if(!empty($_SESSION["username"])) {
+                      echo "<p style='color: white; margin: 0;'> Hello " . $_SESSION["username"] . "</p>";
+                      echo "<a class='nav-link' href='logout.php'>Logout</a>";
+                    } else {
+                      echo "<a class='nav-link' href='login.php'>Login</a>";
+                    }
+                  ?>                 
+                </li>
+                <li class="nav-item">
+                  <?php
+                  if(!empty($_SESSION["username"])){
+                    echo "<a href='../admin-end/login.php' class='nav-link'>Go to admin</a>";
+                  }
+                  ?>
+                  
+                </li>
             </ul>
           </div>
         </div>
@@ -78,20 +99,20 @@
       <div class="owl-banner owl-carousel">
         <div class="banner-item-01">
           <div class="text-content">
-            <h4>Find your car today!</h4>
-            <h2>Lorem ipsum dolor sit amet</h2>
+            <h4>HI</h4>
+            <h2>I love you</h2>
           </div>
         </div>
         <div class="banner-item-02">
           <div class="text-content">
-            <h4>Fugiat Aspernatur</h4>
-            <h2>Laboriosam reprehenderit ducimus</h2>
+            <h4>HELLO</h4>
+            <h2>Who are you?</h2>
           </div>
         </div>
         <div class="banner-item-03">
           <div class="text-content">
-            <h4>Saepe Omnis</h4>
-            <h2>Quaerat suscipit unde minus dicta</h2>
+            <h4>LEMBO</h4>
+            <h2>Que unta ?</h2>
           </div>
         </div>
       </div>
@@ -107,71 +128,27 @@
               <a href="products.html">view more <i class="fa fa-angle-right"></i></a>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="product-details.html"><img src="assets/images/product-1-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="product-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$999.00 </del></small> $779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dicta voluptas quia dolor fuga odit.</p>
-              </div>
-            </div>
-          </div>
 
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="product-details.html"><img src="assets/images/product-2-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="product-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$99.00</del></small>  $79.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non beatae soluta, placeat vitae cum maxime culpa itaque minima.</p>
-              </div>
-            </div>
-          </div>
+          <?php 
+          include('../controls.php');
+          $tbl_product = new tbl_product();
+          $products = $tbl_product->select_all();
 
-          <div class="col-md-4">
+          foreach($products as $product) {
+        ?>
+                  <div class="col-md-4">
             <div class="product-item">
-              <a href="product-details.html"><img src="assets/images/product-3-370x270.jpg" alt=""></a>
+              <a href="product-details.php?id=<?php echo $product['product_id'] ?>"><img src="../UPLOAD/<?php echo  $product['picture'] ?>" alt=""></a>
               <div class="down-content">
-                <a href="product-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$1999.00</del></small>   $1779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt nisi quia aspernatur, harum facere delectus saepe enim?</p>
+                <a href="product-details.php?id=<?php echo $product['product_id'] ?>"><h4><?php echo $product['product_name'] ?></h4></a>
+                <h6> <?php echo $product['price'] ?></h6>
+                <p><?php echo $product['description'] ?></p>
               </div>
             </div>
           </div>
-
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="product-details.html"><img src="assets/images/product-4-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="product-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$999.00 </del></small> $779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dicta voluptas quia dolor fuga odit.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="product-details.html"><img src="assets/images/product-5-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="product-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$999.00 </del></small> $779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dicta voluptas quia dolor fuga odit.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="product-details.html"><img src="assets/images/product-6-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="product-details.html"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$999.00 </del></small> $779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dicta voluptas quia dolor fuga odit.</p>
-              </div>
-            </div>
-          </div>
+          <?php 
+          }
+          ?>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
-<?php include('../controls.php');
-              session_start();?>
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,14 +41,14 @@
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="shop.php"><h2>LEMBO <em>Shop</em></h2></a>
+          <a class="navbar-brand" href="index.html"><h2>Lembo <em>Shop</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="shop.php">Home
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home
                       <span class="sr-only">(current)</span>
                     </a>
                 </li> 
@@ -67,7 +68,25 @@
                 
                 <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
 
-                <li class="nav-item active"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                <li class="nav-item">
+                  <?php 
+                    if(!empty($_SESSION["username"])) {
+                      echo "<p style='color: white; margin: 0;'> Hello " . $_SESSION["username"] . "</p>";
+                      echo "<a class='nav-link' href='logout.php'>Logout</a>";
+                    } else {
+                      echo "<a class='nav-link' href='login.php'>Login</a>";
+                    }
+                  ?>                 
+                </li>
+                <li class="nav-item">
+                  <?php
+                  if(!empty($_SESSION["username"])){
+                    echo "<a href='../admin-end/login.php' class='nav-link'>Go to admin</a>";
+                  }
+                  ?>
+                  
+                </li>
             </ul>
           </div>
         </div>
@@ -75,88 +94,66 @@
     </header>
 
     <!-- Page Content -->
-    <div class="page-heading contact-heading header-text" style="background-image: url(assets/images/heading-4-1920x500.jpg);">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="text-content">
-              <h4>ACTION</h4>
-              <h2>LOGIN</h2>
-            </div>
+    <!-- Banner Starts Here -->
+    <div class="banner header-text">
+      <div class="owl-banner owl-carousel">
+        <div class="banner-item-01">
+          <div class="text-content">
+            <h4>HI</h4>
+            <h2>I love you</h2>
+          </div>
+        </div>
+        <div class="banner-item-02">
+          <div class="text-content">
+            <h4>HELLO</h4>
+            <h2>Who are you?</h2>
+          </div>
+        </div>
+        <div class="banner-item-03">
+          <div class="text-content">
+            <h4>LEMBO</h4>
+            <h2>Que unta ?</h2>
           </div>
         </div>
       </div>
     </div>
+    <!-- Banner Ends Here -->
 
-
-
-
-
-    
-    <div class="send-message">
+    <div class="latest-products">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="section-heading">
-              <h2>Login</h2>
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="contact-form">
-              <form id="contact" action="" method="post">
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="txt_username" type="text" class="form-control" id="name" placeholder="Username" required="">
-                    </fieldset>
-                  </div>
-
-                  <div class="col-lg-12 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="txt_password" type="password" class="form-control" id="subject" placeholder="Password" required="">
-                    </fieldset>
-                  </div>
- 
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <button type="submit" id="form-submit" class="filled-button" name="btn_submit">LOGIN</button>
-                    </fieldset>
-                  <p>
-                  Create new 
-                    <a href="../admin-end/register-to-shop.php">account</a>
-                  </p>
-                  </div>
-                </div>
-              </form>
-              <?php
+              <h2>ALL PRODUCT</h2>
               
-              if(isset($_POST["btn_submit"])) {
-                  $tbl_user = new tbl_user();
-                  $user_info = $tbl_user->select_user($_POST["txt_username"]);
-
-                  if(mysqli_num_rows($user_info) == 1) {                                      
-                      if($_POST["txt_password"] == $user_info->fetch_assoc()["password"]) {
-                          $_SESSION["username"] = $_POST["txt_username"];
-                          echo "<script> alert('Đăng nhập thành công'); window.location='shop.php' </script>";
-                      } else {
-                          echo "<script> alert('Nhập sai mật khẩu') </script>";
-                      }
-                  } else {
-                      echo "<script> alert('Tài khoản này không tồn tại') </script>";
-                  }
-              }             
-            ?>
             </div>
           </div>
-          <div class="col-md-4">
-            <img src="assets/images/team_01.jpg" class="img-fluid" alt="">
 
-            <h5 class="text-center" style="margin-top: 15px;">LEMBO</h5>
+          <?php 
+          include('../controls.php');
+          $tbl_product = new tbl_product();
+          $products = $tbl_product->select_all();
+
+          foreach($products as $product) {
+        ?>
+                  <div class="col-md-4">
+            <div class="product-item">
+              <a href="product-details.php?id=<?php echo $product['product_id'] ?>"><img src="../UPLOAD/<?php echo  $product['picture'] ?>" alt=""></a>
+              <div class="down-content">
+                <a href="product-details.php?id=<?php echo $product['product_id'] ?>"><h4><?php echo $product['product_name'] ?></h4></a>
+                <h6> <?php echo $product['price'] ?></h6>
+                <p><?php echo $product['description'] ?></p>
+              </div>
+            </div>
           </div>
+          <?php 
+          }
+          ?>
         </div>
       </div>
     </div>
 
+    
     <footer>
       <div class="container">
         <div class="row">
@@ -179,5 +176,4 @@
     <script src="assets/js/custom.js"></script>
     <script src="assets/js/owl.js"></script>
   </body>
-
 </html>
