@@ -123,20 +123,21 @@
     }
 
 
-class tbl_user{
-    public function insert($username, $password, $gender, $address, $hobby, $avatar_path, $email) {
-        global $conn;
+    class tbl_user {
+        public function insert($username, $password, $gender, $address, $hobby, $avatar_path, $email) {
+            global $conn;
 
-        $sql = "INSERT INTO user(username, password, gender, address, hobby, avatar_path, email) 
-                VALUES('$username','$password','$gender','$address','$hobby','$avatar_path','$email')";
+            $sql = "INSERT INTO user(username, password, gender, address, hobby, avatar_path, email) 
+                    VALUES('$username','$password','$gender','$address','$hobby','$avatar_path','$email')";
 
-        return mysqli_query($conn, $sql);
+            return mysqli_query($conn, $sql);
+        }
+
+        public function select_user($username) {
+            global $conn;
+
+            $sql = "SELECT * FROM user WHERE username='$username'";
+
+            return mysqli_query($conn, $sql);
+        }
     }
-    public function select_user($username) {
-        global $conn;
-
-        $sql = "SELECT * FROM user WHERE username='$username'";
-
-        return mysqli_query($conn, $sql);
-    }
-}

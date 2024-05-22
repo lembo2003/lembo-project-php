@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Sign up - srtdash</title>
+    <title>Login - srtdash</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -37,52 +37,63 @@
     <div class="login-area">
         <div class="container">
             <div class="login-box ptb--100">
-                <form>
+                <form method="POST" role="form">
                     <div class="login-form-head">
-                        <h4>Sign up</h4>
-                        <p>Hello there, Sign up and Join with Us</p>
+                        <h4>Sign In</h4>
+                        <p>Hello there, Sign in and start managing your Admin Template</p>
                     </div>
+                    
                     <div class="login-form-body">
+                    
                         <div class="form-gp">
-                            <label for="exampleInputName1">Full Name</label>
-                            <input type="text" id="exampleInputName1">
-                            <i class="ti-user"></i>
-                            <div class="text-danger"></div>
-                        </div>
-                        <div class="form-gp">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" id="exampleInputEmail1">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="text" id="exampleInputEmail1" name="txt_username">
                             <i class="ti-email"></i>
                             <div class="text-danger"></div>
                         </div>
                         <div class="form-gp">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" id="exampleInputPassword1">
+                            <label for="exampleInputPassword1" >Password</label>
+                            <input type="password" id="exampleInputPassword1" name="txt_password">
                             <i class="ti-lock"></i>
                             <div class="text-danger"></div>
                         </div>
-                        <div class="form-gp">
-                            <label for="exampleInputPassword2">Confirm Password</label>
-                            <input type="password" id="exampleInputPassword2">
-                            <i class="ti-lock"></i>
-                            <div class="text-danger"></div>
-                        </div>
-                        <div class="submit-btn-area">
-                            <button id="form_submit" type="submit">Submit <i class="ti-arrow-right"></i></button>
-                            <div class="login-other row mt-4">
-                                <div class="col-6">
-                                    <a class="fb-login" href="#">Sign up with <i class="fa fa-facebook"></i></a>
-                                </div>
-                                <div class="col-6">
-                                    <a class="google-login" href="#">Sign up with <i class="fa fa-google"></i></a>
+                        <div class="row mb-4 rmber-area">
+                            <div class="col-6">
+                                <div class="custom-control custom-checkbox mr-sm-2">
+                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                                    <label class="custom-control-label" for="customControlAutosizing">Remember Me</label>
                                 </div>
                             </div>
+                            <div class="col-6 text-right">
+                                <a href="forgot-password.php">Forgot Password?</a>
+                            </div>
                         </div>
+                        <div class="submit-btn-area">
+                        <button id="form_submit" type="submit" name="btn_submit">Submit <i class="ti-arrow-right"></i></button>
                         <div class="form-footer text-center mt-5">
-                            <p class="text-muted">Don't have an account? <a href="login.html">Sign in</a></p>
+                            <p class="text-muted">Don't have an account? <a href="register.php">Sign up</a>
+                        </p>
                         </div>
                     </div>
                 </form>
+                <?php 
+                                    include('../controls.php');
+                                    $tbl_user = new tbl_user();
+
+                                    if(isset($_POST["btn_submit"])) {
+                                        $user_info = $tbl_user->select_user($_POST["txt_username"]);
+
+                                        if(mysqli_num_rows($user_info) == 1) {                                      
+                                            if($_POST["txt_password"] == $user_info->fetch_assoc()["password"]) {
+                                                echo "<script> alert('Đăng nhập thành công'); window.location='select_product.php' </script>";
+                                            } else {
+                                                echo "<script> alert('Nhập sai mật khẩu') </script>";
+                                            }
+                                        } else {
+                                            echo "<script> alert('Tài khoản này không tồn tại') </script>";
+                                        }
+                                    }
+                                ?>
             </div>
         </div>
     </div>
