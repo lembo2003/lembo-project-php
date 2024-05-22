@@ -311,7 +311,7 @@ session_start();
                                         </div>
                                         <div class="form-group">
                                             <label>Product Picture</label> <br>
-                                            <img src="../../UPLOAD/PRODUCT_img/<?php echo $update_product["picture"] ?>" style="width:200px;">
+                                            <img src="../UPLOAD/<?php echo $update_product["picture"] ?>" style="width:200px;">
                                             <input class="form-control" type="file" name="txt_product_picture">
                                             <input type="hidden" name="txt_old_picture" value="<?php echo $update_product["picture"] ?>">
                                         </div>
