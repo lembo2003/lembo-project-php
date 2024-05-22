@@ -9,5 +9,5 @@ if (isset($_SESSION['orders'])) {
 } else {
   echo 'No orders found in the session.';
 }
-session_destroy();
+
 ?>
