@@ -99,7 +99,7 @@
                 ?>
 
                 <div class="table-responsive">
-                  <table class="table">
+                  <table class="table" style="color:white;">
                     <tbody>
                       <tr> 
                         <td> Tên khách hàng </td>
@@ -121,7 +121,7 @@
                       </tr>
 
                       <tr>
-                        <table class="table">
+                        <table class="table" style="color:white;">
                           <tr>
                             <th>Tên hàng</th>
                             <th>Hình ảnh</th>

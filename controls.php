@@ -1,6 +1,52 @@
 <?php 
     include("connect.php");
 
+    class tbl_user {
+        public function insert($username, $password, $gender, $address, $hobby, $avatar_path, $email) {
+            global $conn;
+
+            $sql = "INSERT INTO user(username, password, gender, address, hobby, avatar_path, email) 
+                    VALUES('$username','$password','$gender','$address','$hobby','$avatar_path','$email')";
+
+            return mysqli_query($conn, $sql);
+        }
+
+        public function select_user($username) {
+            global $conn;
+
+            $sql = "SELECT * FROM user WHERE username='$username'";
+
+            return mysqli_query($conn, $sql);
+        }
+    }
+
+    class tbl_contact {
+        public function insert_contact($fullname, $email, $phonenumber, $message) {
+            global $conn;
+
+            $sql = "INSERT INTO contact(fullname, email, phonenumber, message) 
+                    VALUES('$fullname', '$email', '$phonenumber', '$message')";
+
+            return mysqli_query($conn, $sql);
+        }
+
+        public function select_all() {
+            global $conn;
+
+            $sql = "SELECT * FROM contact";
+
+            return mysqli_query($conn, $sql);
+        }
+
+        public function delete($contact_id) {
+            global $conn;
+
+            $sql = "DELETE FROM contact WHERE contact_id = '$contact_id'";
+
+            return mysqli_query($conn, $sql);
+        }
+    }
+
     class tbl_product {
         public function insert($product_name, $quantity, $picture, $category, $date, $price, $description) {
             global $conn;
@@ -75,7 +121,7 @@
             return mysqli_query($conn, $sql);
         }
     }
-    
+
     class tbl_category {
         public function insert($category_name, $category_description) {
             global $conn;
@@ -122,25 +168,6 @@
         }
     }
 
-
-    class tbl_user {
-        public function insert($username, $password, $gender, $address, $hobby, $avatar_path, $email) {
-            global $conn;
-
-            $sql = "INSERT INTO user(username, password, gender, address, hobby, avatar_path, email) 
-                    VALUES('$username','$password','$gender','$address','$hobby','$avatar_path','$email')";
-
-            return mysqli_query($conn, $sql);
-        }
-
-        public function select_user($username) {
-            global $conn;
-
-            $sql = "SELECT * FROM user WHERE username='$username'";
-
-            return mysqli_query($conn, $sql);
-        }
-    }
     class tbl_user_order {
         public function select_last_order() {
             global $conn;

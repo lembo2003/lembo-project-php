@@ -161,7 +161,8 @@
                   if($_POST["txt_quantity"] <= $product['quantity']) {
                     if(empty($_SESSION["orders"])) {
                       $_SESSION["orders"] = array(array("product" => $product, "number_buy" => $_POST["txt_quantity"]));
-                    } else {
+                    } 
+                    else {
                       array_push($_SESSION["orders"], array("product" => $product, "number_buy" => $_POST["txt_quantity"]));
                     }
                     echo "
