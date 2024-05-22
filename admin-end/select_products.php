@@ -74,7 +74,7 @@ include("../controls.php");
                                 <ul class="collapse">
                                     <li><a href="login.php">Login</a></li>
                                     <li><a href="register.php">Register</a></li>
-                                    <li><a href="reset-pass.php">reset password</a></li>
+                                    <li><a href="forgot-password.php">reset password</a></li>
 
                                 </ul>
                             </li>

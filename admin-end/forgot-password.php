@@ -38,22 +38,78 @@
     <div class="login-area">
         <div class="container">
             <div class="login-box ptb--100">
-                <form>
+                <form method="POST">
                     <div class="login-form-head">
                         <h4>Forgot Password</h4>
                         <p>Hey! Forgot Password Your Password ? Reset Now</p>
                     </div>
                     <div class="login-form-body">
-                        <div class="form-gp">
+                    <div class="form-gp">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="text" id="exampleInputEmail1" name="txt_username">
+                            <i class="ti-email"></i>
+                            <div class="text-danger"></div>
+                        </div>    
+                    <div class="form-gp">
                             <label for="exampleInputEmail1">Email</label>
-                            <input type="email" id="exampleInputEmail1">
+                            <input type="email" id="exampleInputEmail1" name="txt_email">
                             <i class="ti-lock"></i>
                         </div>
                         <div class="submit-btn-area mt-5">
-                            <button id="form_submit" type="submit">Reset <i class="ti-arrow-right"></i></button>
+                            <button id="form_submit" type="submit" name="btn_submit">Reset <i class="ti-arrow-right"></i></button>
                         </div>
                     </div>
                 </form>
+                <?php 
+                        include('../controls.php');
+                        include('../PHPMailer/src/DSNConfigurator.php');
+                        include('../PHPMailer/src/Exception.php');
+                        include('../PHPMailer/src/OAuth.php');
+                        include('../PHPMailer/src/PHPMailer.php');
+                        include('../PHPMailer/src/POP3.php');
+                        include('../PHPMailer/src/SMTP.php');
+
+                        use PHPMailer\PHPMailer\PHPMailer;
+                        use PHPMailer\PHPMailer\Exception;
+                        use PHPMailer\PHPMailer\OAuthTokenProvider;
+                        
+                        if(isset($_POST["btn_submit"])) {
+                            $tbl_user = new tbl_user();
+                            $user_info = $tbl_user->select_user($_POST["txt_username"]);
+
+                            if(mysqli_num_rows($user_info) == 1) {  
+                                $mail = new PHPMailer(true);
+                                try {
+                                    $mail->SMTPDebug = 0;
+                                    $mail->isSMTP();
+                                    $mail->Host = "smtp.gmail.com";
+                                    $mail->SMTPAuth = true;
+                                    $mail->Username = "lembo0909@gmail.com";
+                                    $mail->Password = "kqtl gvga ysmj ytwq";
+                                    $mail->SMTPSecure = "tls";
+                                    $mail->Port = 587;
+                                    $mail->CharSet = "UTF-8";
+                                    $mail->setFrom("lembo0909@gmail.com");
+                                    $mail->addAddress($_POST["txt_email"], 'Thu Van');
+                                    $mail->isHTML(true);
+                                    $mail->Subject = "Cảm ơn";
+                                    $mail->Body = "Mật khẩu của ban la: ".$user_info->fetch_assoc()["password"];;
+                                    $mail->send();
+                                    echo "<script>alert('Email has been sent');
+                                    window.location='login.php';
+                                    </script>";
+                                    
+                                  
+                                
+                                } catch (Exception $e) {
+                                    echo "Message could not send. Mailer error : " . $mail->ErrorInfo;
+                                } 
+                                    
+                            } else {
+                                echo "<script> alert('Tài khoản này không tồn tại') </script>";
+                            }
+                        }
+                    ?>
             </div>
         </div>
     </div>

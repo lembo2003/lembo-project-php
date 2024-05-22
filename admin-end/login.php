@@ -85,7 +85,7 @@
 
                                         if(mysqli_num_rows($user_info) == 1) {                                      
                                             if($_POST["txt_password"] == $user_info->fetch_assoc()["password"]) {
-                                                echo "<script> alert('Đăng nhập thành công'); window.location='select_product.php' </script>";
+                                                echo "<script> alert('Đăng nhập thành công'); window.location='select_products.php' </script>";
                                             } else {
                                                 echo "<script> alert('Nhập sai mật khẩu') </script>";
                                             }
