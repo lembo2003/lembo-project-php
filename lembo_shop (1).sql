@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2024 at 12:11 AM
+-- Generation Time: May 23, 2024 at 09:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -38,7 +38,8 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`category_id`, `category_name`, `category_description`) VALUES
-(1, 'Hoa quả', 'Hoa quả hehehehesss');
+(1, 'Hoa quả', 'Hoa quả hehehehesss'),
+(4, 'Pet', 'Danh mục cho động vật');
 
 -- --------------------------------------------------------
 
@@ -72,7 +73,9 @@ CREATE TABLE `order_details` (
 
 INSERT INTO `order_details` (`order_id`, `product_id`, `number_buy`) VALUES
 (1, 3, 3),
-(1, 1, 2);
+(1, 1, 2),
+(2, 4, 1),
+(2, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -97,7 +100,9 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`product_id`, `product_name`, `quantity`, `picture`, `category`, `date`, `price`, `description`) VALUES
 (1, 'Chuối', 0, 'chuoi.jpg', 'Hoa quả', '2003-09-09', 300000, '     Đây là quả chuối     '),
-(3, 'hehetest', 120, 'chuoi.jpg', 'Hoa quả', '0000-00-00', 123, '');
+(3, 'hehetest', 120, 'chuoi.jpg', 'Hoa quả', '0000-00-00', 123, ''),
+(4, 'Chó', 3, 'dog.jpg', 'Pet', '2003-09-09', 4000000, ' Very cute dog, named Godzillaaaa '),
+(5, 'Car', 0, 'cat.jpg', 'Pet', '2003-09-09', 999000, 'This car is very expensiv!!!');
 
 -- --------------------------------------------------------
 
@@ -124,7 +129,8 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `gender`, `address`, `hob
 (11, 'LEMBO', '1', '', '', '', '', ''),
 (12, 'lembo1', '123', 'MALE', '', 'Football on Sing ', '', ''),
 (13, 'admin', '1', 'MALE', 'VN', 'Football Code Sing ', '', '1@d'),
-(14, 'admin1', '1', 'FEMALE', 'VN', 'Football Code Sing ', '', '1@d');
+(14, 'admin1', '1', 'FEMALE', 'VN', 'Football Code Sing ', '', '1@d'),
+(15, 'test1', '123', 'MALE', '123', 'Football Code Sing ', '', 'lembo0909@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -145,7 +151,8 @@ CREATE TABLE `user_order` (
 --
 
 INSERT INTO `user_order` (`order_id`, `user_id`, `order_date`, `into_money`, `status`) VALUES
-(1, 11, '2024-05-22', 600369, 'Chờ xác nhận');
+(1, 11, '2024-05-22', 600369, 'Chờ xác nhận'),
+(2, 15, '2024-05-23', 4999000, 'Đang vận chuyển');
 
 --
 -- Indexes for dumped tables
@@ -189,25 +196,25 @@ ALTER TABLE `user_order`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user_order`
 --
 ALTER TABLE `user_order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
